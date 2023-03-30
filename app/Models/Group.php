@@ -27,4 +27,7 @@ class Group extends Model
     public function fillParticipants(){
         $this->participants = Participant::all()->where("id", "=", $this->id);
     }
+    public function participants() {
+        return Participant::all()->where("id", "=", $this->id);
+}
 }

@@ -64,6 +64,22 @@ class GroupController extends Controller
 
     function makeToss($id)
     {
-        return;
+        $group = Group::find($id);
+        if (!$group){
+            return response(content: "Group with id $id not found", status: 404);
+        }
+
+        $participants = Participant::all(["id", "name", "wish", 'groupId'])->where("groupId", $id);;
+
+        if (count($participants) <= 3) {
+            return response(content: 'Not enough participants', status: 400);
+        }
+        else {
+            $ids = [];
+
+            foreach ($participants as $participant) {
+                $ids[] = $participant["id"];
+            }
+        }
     }
 }
